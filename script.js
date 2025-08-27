@@ -39,15 +39,8 @@ function mainGame(games) {
     for (let i = 1; i <= games; i++) {
 
         // Computer picks rock, paper, or scissors
-        let randomNumber = Math.floor(Math.random() * 3 + 1);
-        if (randomNumber === 1) {
-            computerGuess = "rock";
-        } else if (randomNumber === 2) {
-            computerGuess = "paper";
-        } else {
-            computerGuess = "scissors";
-        }
-        console.log(computerGuess) //DELETE
+        computerGuess = commands[Math.floor(Math.random() * commands.length)];
+        console.log(computerGuess); //delete
         inputValidation = false;
         while (!inputValidation) {
 
@@ -94,14 +87,14 @@ function calcScore(userPoints, compPoints) {
     // If User points > Computer Points
     if (userPoints > compPoints) {
         // User Wins!
-        alert("You are the winner! Congratulations!");
+        alert(`You won! Final score: You ${userScore} — Computer ${computerScore}`);
         // If computer Points > User Points
     } else if (userPoints < compPoints) {
         // Computer Wins!
-        alert("Your computer overlord WINS!");
+        alert(`Your computer overlord WINS! Final score: You ${userScore} — Computer ${computerScore}`);
     } else {
         // Else it's a tie.
-        alert("We both tied, try again!");
+        alert(`We both tied, try again! Final score: You ${userScore} — Computer ${computerScore}`);
     }
 }
 
