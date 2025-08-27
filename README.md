@@ -1,3 +1,3 @@
-## TOP: Rock, Paper, Scissors
+# TOP: Rock, Paper, Scissors
 
-# Placeholder for README.MD
+## Placeholder for README.MD
