@@ -1,13 +1,13 @@
-// I need a gamesToPlay variable
-// I need a userGuess variable
-// I need a random number variable
-// I need a computerGuess variable
-// I need a userScore variable
-// I need a computerScore variable
-// I need a bool stillPlaying variable
+/*
+Dennis Nierzwicki's Rock, Paper, Scissors game.
+
+This game is the first JavaScript project in The Odin Project
+
+*/
 
 let gamesToPlay = NaN;
-let inputValidation = false;
+let inputValidation;
+let keepPlaying;
 let userGuess;
 let computerGuess;
 let userScore = 0;
@@ -17,6 +17,8 @@ let commands = ["rock", "paper", "scissors"];
 
 // How many games should we play?
 function gamesToBePlayed() {
+
+    inputValidation = false;
     while (!inputValidation) {
         gamesToPlay = parseInt(prompt("How many games should we play? (Min 3)"));
         // Validate a number >= 3
@@ -28,77 +30,151 @@ function gamesToBePlayed() {
             inputValidation = false;
         }
     }
+
 }
 
 function mainGame(games) {
-    for (i = 1; i >= games; i++) {
+
+    // LOOP gamesToPlay x's
+    for (i = 1; i <= games; i++) {
+
+        // Computer picks rock, paper, or scissors
         let randomNumber = Math.floor(Math.random() * 3 + 1);
         if (randomNumber === 1) {
-            computerGuess = "Rock";
+            computerGuess = "rock";
         } else if (randomNumber === 2) {
-            computerGuess = "Paper";
+            computerGuess = "paper";
         } else {
-            computerGuess = "Scissors";
+            computerGuess = "scissors";
         }
+
         inputValidation = false;
         while (!inputValidation) {
+
+            // User picks rock, paper, or scissors
             userGuess = prompt("Rock, Paper, or Scissors?").toLowerCase();
+
+            // Validate the input - Is it a number?
             if (commands.includes(userGuess)) {
                 inputValidation = true;
             } else {
                 alert("Sorry, I didn't catch that. Try again.");
             }
         }
+        gameResults(userGuess, computerGuess);
     }
-    // LOOP gamesToPlay x's
-    // Computer picks rock, paper, or scissors
+    calcScore(userScore, computerScore);
 
-    // User picks rock, paper, or scissors
-    // Validate the input - Is it a number?
-
-    // If computer Points > User Points
-    // Computer Wins!
-    // Else if User points > Computer Points
-    // User Wins!
-    // Else
-    // It's a Tie
-    // Start again or done playing
 }
 
 function gameResults(user, comp) {
 
     // User picks Rock
-    // Computer picks scissors
-    // User scores a point
-    // Computer picks paper
-    // Computer scores a point
-    // Else Both get a point - TIE
-    // User picks Paper
-    // Computer picks scissors
-    // Computer scores a point
-    // Computer picks rock
-    // User scores a point
-    // Else Both get a point - TIE
-    // User picks Rock
-    // Computer picks scissors
-    // User scores a point
-    // Computer picks paper
-    // Computer scores a point
-    // Else Both get a point - TIE
+    if (user === "rock") {
+        // Computer picks scissors
+        if (comp === "scissors") {
+            // User scores a point
+            userScore++;
+            alert("You Win!");
+            // Computer picks paper
+        } else if (comp === "paper") {
+            // Computer scores a point
+            computerScore++;
+            alert("I Win!");
+        } else {
+            // Else Both get a point - TIE
+            userScore++;
+            computerScore++;
+            alert("It's A Tie!");
+        }
+        // User picks Paper
+    } else if (user === "paper") {
+        // Computer picks scissors
+        if (comp === "scissors") {
+            // Computer scores a point
+            computerScore++;
+            alert("I Win!");
+            // Computer picks rock
+        } else if (comp === "rock") {
+            // User scores a point
+            userScore++;
+            alert("You Win!");
+        } else {
+            // Else Both get a point - TIE
+            userScore++;
+            computerScore++;
+            alert("It's A Tie!");
+        }
+        // User picks Scissors
+    } else if (user === "scissors") {
+        // Computer picks rock
+        if (comp === "rock") {
+            // Computer scores a point
+            computerScore++;
+            alert("I Win!");
+            // Computer picks paper
+        } else if (comp === "paper") {
+            // User scores a point
+            userScore++;
+            alert("You Win!");
+            // Else Both get a point - TIE
+        } else {
+            userScore++;
+            computerScore++;
+            alert("It's A Tie!");
+        }
+    }
+
+}
+
+function calcScore(userPoints, compPoints) {
+
+    // If User points > Computer Points
+    if (userPoints > compPoints) {
+        // User Wins!
+        alert("You are the winner! Congratulations!");
+        // If computer Points > User Points
+    } else if (userPoints < compPoints) {
+        // Computer Wins!
+        alert("Your computer overlord WINS!");
+    } else {
+        // Else it's a tie.
+        alert("We both tied, try again!");
+    }
 }
 
 function playAgain() {
-    // Play Again?
-    // Validate answer
-    // Still playing is still true
-    // Else Still playing = False
+
+    // Reset inputValidation
+    inputValidation = false;
+    while (!inputValidation) {
+        // Play again?
+        keepPlaying = prompt("Would you like to keep playing? Yes or No.").toLowerCase();
+        if (keepPlaying[0] === "y") {
+            stillPlaying = true;
+            computerScore = 0;
+            userScore = 0;
+            inputValidation = true;
+        } else if (keepPlaying[0] === "n") {
+            stillPlaying = false;
+            inputValidation = true;
+        } else {
+            alert("Sorry, I don't understand that. Try again.");
+        }
+    }
+
 }
 
-// LOOP if stillPlaying is True
-//while (stillPlaying)    {
-//    gamesToBePlayed();
-//}
+function main() {
 
-// End Game
+    while (stillPlaying) {
+        gamesToBePlayed();
+        mainGame(gamesToPlay);
+        playAgain();
+    };
 
+}
 
+main();
+
+alert("Thank you for playing Rock, Paper, Scissors!");
