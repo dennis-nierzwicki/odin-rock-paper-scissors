@@ -36,7 +36,7 @@ function gamesToBePlayed() {
 function mainGame(games) {
 
     // LOOP gamesToPlay x's
-    for (i = 1; i <= games; i++) {
+    for (let i = 1; i <= games; i++) {
 
         // Computer picks rock, paper, or scissors
         let randomNumber = Math.floor(Math.random() * 3 + 1);
