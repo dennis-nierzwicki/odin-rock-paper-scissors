@@ -13,7 +13,7 @@ let computerGuess;
 let userScore = 0;
 let computerScore = 0;
 let stillPlaying = true;
-let commands = ["rock", "paper", "scissors"];
+const commands = ["rock", "paper", "scissors"];
 
 // How many games should we play?
 function gamesToBePlayed() {
@@ -47,7 +47,7 @@ function mainGame(games) {
         } else {
             computerGuess = "scissors";
         }
-
+        console.log(computerGuess) //DELETE
         inputValidation = false;
         while (!inputValidation) {
 
@@ -69,61 +69,23 @@ function mainGame(games) {
 
 function gameResults(user, comp) {
 
-    // User picks Rock
-    if (user === "rock") {
-        // Computer picks scissors
-        if (comp === "scissors") {
-            // User scores a point
-            userScore++;
-            alert("You Win!");
-            // Computer picks paper
-        } else if (comp === "paper") {
-            // Computer scores a point
-            computerScore++;
-            alert("I Win!");
-        } else {
-            // Else Both get a point - TIE
-            userScore++;
-            computerScore++;
-            alert("It's A Tie!");
-        }
-        // User picks Paper
-    } else if (user === "paper") {
-        // Computer picks scissors
-        if (comp === "scissors") {
-            // Computer scores a point
-            computerScore++;
-            alert("I Win!");
-            // Computer picks rock
-        } else if (comp === "rock") {
-            // User scores a point
-            userScore++;
-            alert("You Win!");
-        } else {
-            // Else Both get a point - TIE
-            userScore++;
-            computerScore++;
-            alert("It's A Tie!");
-        }
-        // User picks Scissors
-    } else if (user === "scissors") {
-        // Computer picks rock
-        if (comp === "rock") {
-            // Computer scores a point
-            computerScore++;
-            alert("I Win!");
-            // Computer picks paper
-        } else if (comp === "paper") {
-            // User scores a point
-            userScore++;
-            alert("You Win!");
-            // Else Both get a point - TIE
-        } else {
-            userScore++;
-            computerScore++;
-            alert("It's A Tie!");
-        }
-    }
+    if (user === comp) {
+        userScore++;
+        computerScore++;
+        alert("It's A Tie!");
+    } else if (user === "rock" && comp === "scissors"
+        || user === "paper" && comp === "rock"
+        || user === "scissors" && comp === "paper") {
+        // User scores a point
+        userScore++;
+        alert("You Win!");
+    } else if (comp === "rock" && user === "scissors"
+        || comp === "paper" && user === "rock"
+        || comp === "scissors" && user === "paper") {
+        // Computer scores a point
+        computerScore++;
+        alert("I Win!");
+    };
 
 }
 
